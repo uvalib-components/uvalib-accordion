@@ -98,6 +98,8 @@ class UvalibAccordion extends mixinBehaviors([IronA11yKeysBehavior],PolymerEleme
   }
   get keyBindings() {
     return {
+      'space': 'toggleSelected',
+      'enter': 'toggleSelected',
       'ctrl+pagedown': 'selectNext',
       'down': 'selectNext',
       'ctrl+pageup': 'selectPrevious',
@@ -123,6 +125,12 @@ class UvalibAccordion extends mixinBehaviors([IronA11yKeysBehavior],PolymerEleme
     this._items.forEach(function(item,index){
       if(item.hasAttribute('opened')) this.$.selector.selectIndex(index)
     }.bind(this));
+  }
+  toggleSelected() {
+    e.preventDefault();
+    if (this.selectedItem) {
+      this.selectedItem.$.accordionId.setAttribute("opened",!this.selectedItem.$.accordionId.getAttribute("opened"));
+    }
   }
   /** Selects (opens) and focuses the next item in the accordion. */
   selectNext(e) {
